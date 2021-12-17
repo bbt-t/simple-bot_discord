@@ -41,18 +41,20 @@ class Database:
     def create_table_users(self):
         sql = """
         CREATE TABLE IF NOT EXISTS Users
-        (user_id integer NOT NULL PRIMARY KEY AUTOINCREMENT,
-        name varchar(128) NOT NULL,
-        warnings integer)
+        (user_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+        name VARCHAR(128) NOT NULL,
+        warnings INTEGER,
+        reg_time DATE NOT NULL)
         """
         self.execute(sql, commit=True)
 
     def add_user(self,
                  user_id: int,
                  name: str,
-                 warnings=None):
-        sql = "INSERT INTO Users (user_id, name, warnings) VALUES (?, ?, ?)"
-        parameters = (user_id, name, warnings)
+                 reg_time,
+                 warnings: int = None):
+        sql = "INSERT INTO Users (user_id, name, reg_time, warnings) VALUES (?, ?, ?, ?)"
+        parameters = (user_id, name, reg_time, warnings)
         self.execute(sql, parameters=parameters, commit=True)
 
     def add_warnings(self, user_id: int, warnings: int = None):
