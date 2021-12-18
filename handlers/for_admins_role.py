@@ -1,4 +1,4 @@
-from discord import Member
+from discord import Member, utils
 from discord.ext import commands
 
 from loader import bot, logger
@@ -34,5 +34,27 @@ async def ban_user(msg, member: Member, *, reason=None):
     logger.warning(f'{member.mention} : was banned')
 
 
+@bot.command('mute')
+@commands.has_permissions(administrator=True)
+async def mute_user(msg, member: Member, *, reason=None):
+    mute_role = utils.get(msg.message.guild.roles, name='muted')
+    await msg.channel.purge(limit=1)
+
+    await member.edit(roles=())
+    await member.add_roles(mute_role, reason=reason)
+    await member.send(f'Ты получил мут на {msg.guild.name}')
+    logger.warning(f'{member.mention} : was muted')
 
 
+@bot.command('unmute')
+@commands.has_permissions(administrator=True)
+async def mute_user(msg, member: Member):
+    mute_role = utils.get(msg.message.guild.roles, name='muted')
+    role = utils.get(msg.message.guild.roles, name='стопка')
+
+    await msg.channel.purge(limit=1)
+
+    await member.remove_roles(mute_role)
+    await member.add_roles(role)
+    await member.send(f'Ты размучен на {msg.guild.name}')
+    logger.warning(f'{member.mention} : was unmute')

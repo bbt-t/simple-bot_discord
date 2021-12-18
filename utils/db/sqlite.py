@@ -57,8 +57,8 @@ class Database:
         parameters = (user_id, name, reg_time, warnings)
         self.execute(sql, parameters=parameters, commit=True)
 
-    def add_warnings(self, user_id: int, warnings: int = None):
-        if show_warnings := self.select_warning(user_id=user_id):
+    def add_warnings(self, user_id: int, warnings: int = 1):
+        if show_warnings := self.select_warning(user_id=user_id)[0]:
             warnings += show_warnings
         sql = "UPDATE Users SET warnings = ? WHERE ?"
         parameters = (warnings, user_id)
