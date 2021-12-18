@@ -1,6 +1,6 @@
 from sqlite3 import Error as sqlite_Error
 
-from handlers import all_handlers
+import handlers
 from config import settings
 from loader import bot, logger, db
 
