@@ -1,6 +1,5 @@
 import discord
 from discord.ext import commands
-#from apscheduler.jobstores.sqlalchemy import SQLAlchemyJobStore
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
 from loguru import logger
@@ -18,4 +17,5 @@ logger.add(
 
 bot = commands.Bot(command_prefix=settings['prefix'], intents=discord.Intents.all())
 db = Database()
-scheduler = AsyncIOScheduler()
+
+scheduler = AsyncIOScheduler(logger=logger)

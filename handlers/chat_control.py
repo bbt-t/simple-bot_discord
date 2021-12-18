@@ -7,6 +7,8 @@ from loader import bot, logger, scheduler, db
 from utils.forgiveness_of_the_offender import unmute_user
 
 
+
+
 @bot.event
 async def on_message(msg):
     """
@@ -29,7 +31,7 @@ async def on_message(msg):
                 await user.edit(roles=())
                 await user.add_roles(mute_role)
                 await user.send('АЙАЙАЙ! читай правила чата! x2')
-                date = time_now + timedelta(hours=3)
+                date = time_now + timedelta(minutes=30)
                 scheduler.add_job(
                     unmute_user, 'date', id=f'{user.id}_mute',
                     run_date=date.strftime('%Y-%m-%d %H:%M:%S'),

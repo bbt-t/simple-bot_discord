@@ -1,11 +1,8 @@
 from discord import Member, utils
 
-from loader import bot
 
 
 
-
-@bot.command()
 async def unmute_user(member: Member):
     role = utils.get(member.guild.roles, id=809817869914341396)
 
